@@ -1,0 +1,240 @@
+{
+  "products": [
+    {
+      "id": "couture-floral-red",
+      "name": "Ruby 3D Floral Embellishment",
+      "category": "Fabric Work",
+      "image": "/images/couture-fabric-floral-red.jpg",
+      "description": "Breathtaking red velvet base adorned with 3D floral appliqués and crystal beadwork.",
+      "materials": [
+        "Velvet",
+        "3D Silk Flowers",
+        "Crystals"
+      ]
+    },
+    {
+      "id": "couture-gown-maroon",
+      "name": "Imperial Maroon Gown",
+      "category": "Couture Gowns",
+      "image": "/images/couture-gown-maroon.jpg",
+      "description": "Majestic maroon couture gown featuring a dramatic long train and cascading crystal embroidery.",
+      "materials": [
+        "Silk Chiffon",
+        "Swarovski Crystals",
+        "Zari"
+      ]
+    },
+    {
+      "id": "couture-gown-red",
+      "name": "Crimson Cascade Gown",
+      "category": "Bridal Couture",
+      "image": "/images/couture-gown-red.jpg",
+      "description": "Striking crimson red gown complete with a sweeping, heavily embroidered tulle train.",
+      "materials": [
+        "Tulle",
+        "Silk",
+        "Glass Beads"
+      ]
+    },
+    {
+      "id": "couture-gown-purple",
+      "name": "Amethyst Royale Gown",
+      "category": "Couture Gowns",
+      "image": "/images/couture-gown-purple.jpg",
+      "description": "Deep purple amethyst gown embellished with sprawling silver vine motifs and a delicate sheer train.",
+      "materials": [
+        "Organza",
+        "Silver Threads",
+        "Sequins"
+      ]
+    },
+    {
+      "id": "velvet-red",
+      "name": "Scarlet Velvet Embroidery",
+      "category": "Fabric Work",
+      "image": "/images/velvet-embroidery-red.jpg",
+      "description": "Intricate crystal and bead embroidery on rich scarlet velvet fabric.",
+      "materials": [
+        "Velvet",
+        "Crystals",
+        "Beads"
+      ]
+    },
+    {
+      "id": "velvet-maroon",
+      "name": "Deep Maroon Velvet Work",
+      "category": "Fabric Work",
+      "image": "/images/velvet-embroidery-maroon.jpg",
+      "description": "Heavy traditional embroidery featuring floral motifs on deep maroon velvet.",
+      "materials": [
+        "Velvet",
+        "Zari",
+        "Sequins"
+      ]
+    },
+    {
+      "id": "velvet-pink",
+      "name": "Blush Pink Sequined Fabric",
+      "category": "Fabric Work",
+      "image": "/images/velvet-embroidery-pink.jpg",
+      "description": "Delicate and elegant sequin trails handcrafted on blush pink velvet.",
+      "materials": [
+        "Velvet",
+        "Pink Sequins",
+        "Glass Beads"
+      ]
+    },
+    {
+      "id": "velvet-orange",
+      "name": "Sunset Orange Zari Work",
+      "category": "Fabric Work",
+      "image": "/images/velvet-embroidery-orange.jpg",
+      "description": "Vibrant sunset orange velvet detailed with traditional zari and crystal embellishments.",
+      "materials": [
+        "Velvet",
+        "Zari Threads",
+        "Crystals"
+      ]
+    },
+    {
+      "id": "velvet-mustard",
+      "name": "Mustard Gold Embellishment",
+      "category": "Fabric Work",
+      "image": "/images/velvet-embroidery-mustard.jpg",
+      "description": "Lustrous mustard velvet with heavy golden and crystal embroidery patterns.",
+      "materials": [
+        "Velvet",
+        "Gold Threads",
+        "Crystals"
+      ]
+    },
+    {
+      "id": "1",
+      "name": "Midnight Gold Illusion Gown",
+      "category": "Luxury Gowns",
+      "image": "/images/golden-gown.jpg",
+      "description": "An exquisite sheer gown featuring hand-sewn golden embroidery and shimmering sequins.",
+      "materials": [
+        "Sheer Tulle",
+        "Gold Zari",
+        "Swarovski Crystals"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Floral Embroidered Couture",
+      "category": "Bridal Couture",
+      "image": "/images/floral-embroidered-dress.png",
+      "description": "A stunning bridal ensemble with intricate 3D floral zardosi work and a sweeping trail.",
+      "materials": [
+        "Pure Organza",
+        "Crystal Beads",
+        "Silk Threads"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Crystal Leaf Bodice Patch",
+      "category": "Embroidery Designs",
+      "image": "/images/crystal-embroidery.jpg",
+      "description": "A handcrafted crystal bodice patch combining traditional motifs with modern aesthetics.",
+      "materials": [
+        "Net Base",
+        "AB Crystals",
+        "Glass Beads"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Royal Crystal Cape Gown",
+      "category": "Luxury Gowns",
+      "image": "/images/crystal-bodice-gown.jpg",
+      "description": "A breathtaking high-neck gown entirely encrusted in premium crystals featuring a dramatic cape.",
+      "materials": [
+        "Premium Net",
+        "Rhinestones",
+        "Pearls"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Metallic Bugle Bead Appliqué",
+      "category": "Embroidery Designs",
+      "image": "/images/bugle-bead-leaves.jpg",
+      "description": "Intricate leaf patterns created using alternating silver and gold metallic bugle beads.",
+      "materials": [
+        "Cotton Base",
+        "Gold Bugle Beads",
+        "Silver Bugle Beads"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Vibrant Floral Neckpiece Set",
+      "category": "Fashion Accessories",
+      "image": "/images/floral-beaded-neckpiece.png",
+      "description": "A stunning handcrafted neckpiece with matching clutch, featuring bright floral patterns heavily embellished with premium beads.",
+      "materials": [
+        "Silk Base",
+        "Seed Beads",
+        "Sequins"
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Regal Gold V-Neck Patch",
+      "category": "Embroidery Designs",
+      "image": "/images/golden-neck-patch-1.png",
+      "description": "An opulent, highly detailed golden neck patch designed with faceted stones and intricate filigree beadwork for couture gowns.",
+      "materials": [
+        "Net Base",
+        "Gold Crystals",
+        "Zari Threads"
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Regal Gold V-Neck Patch (Detail)",
+      "category": "Embroidery Designs",
+      "image": "/images/golden-neck-patch-2.jpg",
+      "description": "A closer look at the masterful craftsmanship of our opulent golden neck patch, featuring densely packed crystals and beads.",
+      "materials": [
+        "Net Base",
+        "Gold Crystals",
+        "Zari Threads"
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Abstract Ocean Beaded Fabric",
+      "category": "Embroidery Designs",
+      "image": "/images/abstract-beaded-fabric.jpg",
+      "description": "Luxurious mesh fabric heavily embellished with abstract wave patterns using metallic threads, blue bugle beads, and bronze crystals.",
+      "materials": [
+        "Sheer Mesh",
+        "Blue Beads",
+        "Bronze Crystals"
+      ]
+    }
+  ],
+  "gallery": [
+    {
+      "id": "g1",
+      "title": "Midnight Gold Couture",
+      "url": "/images/golden-gown.jpg",
+      "description": "Runway Showcase"
+    },
+    {
+      "id": "g2",
+      "title": "The Artisan Touch",
+      "url": "/images/crystal-embroidery.jpg",
+      "description": "Detailed Crystal Handwork"
+    },
+    {
+      "id": "g3",
+      "title": "Bridal Editorial",
+      "url": "/images/floral-embroidered-dress.png",
+      "description": "Studio Sessions"
+    }
+  ]
+}
