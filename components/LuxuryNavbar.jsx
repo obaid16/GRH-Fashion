@@ -21,6 +21,11 @@ export default function LuxuryNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  const isDarkHeader = pathname === "/";
+  const forceSolidNav = pathname === "/contact";
+  const shouldInvert = !isScrolled && isDarkHeader && !forceSolidNav;
+  const showSolidNav = isScrolled || forceSolidNav;
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -37,9 +42,9 @@ export default function LuxuryNavbar() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={cn(
           "fixed top-0 inset-x-0 z-[100] transition-all duration-500",
-          isScrolled 
-            ? "bg-brand-ivory/95 backdrop-blur-md border-b border-brand-gold/30 py-3 shadow-md" 
-            : "bg-white/40 backdrop-blur-sm border-b border-white/20 py-5"
+          showSolidNav 
+            ? "bg-brand-ivory/95 backdrop-blur-md border-b border-brand-gold/30 py-2 shadow-sm" 
+            : "bg-transparent py-4"
         )}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
@@ -48,7 +53,10 @@ export default function LuxuryNavbar() {
             <img 
               src="/images/logo-new.png" 
               alt="GRH Fashion Logo" 
-              className="h-16 md:h-20 w-auto object-contain" 
+              className={cn(
+                "h-10 md:h-14 w-auto object-contain transition-all duration-500",
+                shouldInvert ? "brightness-0 invert" : ""
+              )}
             />
           </Link>
 
@@ -60,7 +68,11 @@ export default function LuxuryNavbar() {
                 href={link.href}
                 className={cn(
                   "text-[13px] font-semibold uppercase tracking-[0.15em] font-inter transition-all duration-300 relative group",
-                  pathname === link.href ? "text-brand-purple" : "text-brand-black/80 hover:text-brand-purple"
+                  pathname === link.href 
+                    ? "text-brand-purple" 
+                    : shouldInvert 
+                      ? "text-white/80 hover:text-white" 
+                      : "text-brand-black/80 hover:text-brand-purple"
                 )}
               >
                 {link.name}
@@ -76,11 +88,22 @@ export default function LuxuryNavbar() {
 
           {/* Icons & Mobile Toggle */}
           <div className="flex items-center gap-5">
-            <Link href="/contact" className="hidden md:inline-flex items-center justify-center px-6 py-2 border border-brand-black text-[11px] uppercase tracking-[0.2em] hover:bg-brand-purple hover:text-white hover:border-brand-purple transition-all duration-300">
+            <Link 
+              href="/contact" 
+              className={cn(
+                "hidden md:inline-flex items-center justify-center px-6 py-2 border text-[11px] uppercase tracking-[0.2em] transition-all duration-300",
+                shouldInvert
+                  ? "border-white text-white hover:bg-white hover:text-brand-black"
+                  : "border-brand-black text-brand-black hover:bg-brand-purple hover:text-white hover:border-brand-purple"
+              )}
+            >
               Book Consultation
             </Link>
             <button
-              className="md:hidden text-brand-black/80 hover:text-brand-purple transition-colors p-2"
+              className={cn(
+                "md:hidden transition-colors p-2",
+                shouldInvert ? "text-white hover:text-brand-gold" : "text-brand-black/80 hover:text-brand-purple"
+              )}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

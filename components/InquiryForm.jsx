@@ -11,16 +11,72 @@ export default function InquiryForm() {
     measurements: "",
     designDescription: "",
   });
+  const [file, setFile] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Inquiry submitted:", formData);
-    // Submit to backend
-    alert("Inquiry submitted successfully. We will contact you soon.");
+    setIsSubmitting(true);
+    
+    try {
+      let fileUrl = "";
+      if (file) {
+        const uploadData = new FormData();
+        uploadData.append("file", file);
+        // Dynamically import the server action to avoid client-side bundling issues
+        const { uploadFileToCloudinary } = await import("@/app/actions/upload");
+        const result = await uploadFileToCloudinary(uploadData);
+        fileUrl = result.url;
+      }
+
+      // Submit to Web3Forms
+      const payload = {
+        // NOTE: Replace this with your actual Web3Forms access key
+        access_key: "YOUR_WEB3FORMS_KEY_HERE",
+        subject: "New Custom Design Inquiry",
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        measurements: formData.measurements,
+        designDescription: formData.designDescription,
+      };
+
+      if (fileUrl) {
+        payload.referenceImage = fileUrl;
+      }
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        alert("Inquiry submitted successfully. We will contact you soon.");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          measurements: "",
+          designDescription: "",
+        });
+        setFile(null);
+      } else {
+        throw new Error("Failed to submit inquiry");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("There was an error submitting your inquiry. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -64,10 +120,20 @@ export default function InquiryForm() {
 
       <div className="space-y-2">
         <label className="text-xs font-poppins uppercase tracking-widest text-brand-gray/80">Reference Images</label>
-        <div className="border border-dashed border-brand-gold/50 bg-white/30 p-8 text-center cursor-pointer hover:border-brand-purple transition-colors group">
-          <p className="font-inter text-sm text-brand-gray/70 group-hover:text-brand-purple transition-colors">Click to upload reference designs or sketches (Optional)</p>
-          <input type="file" multiple className="hidden" />
-        </div>
+        <label htmlFor="file-upload" className="block border border-dashed border-brand-gold/50 bg-white/30 p-8 text-center cursor-pointer hover:border-brand-purple transition-colors group">
+          {file ? (
+            <p className="font-inter text-sm text-brand-purple">{file.name}</p>
+          ) : (
+            <p className="font-inter text-sm text-brand-gray/70 group-hover:text-brand-purple transition-colors">Click to upload reference design or sketch (Optional)</p>
+          )}
+          <input 
+            id="file-upload"
+            type="file" 
+            className="hidden" 
+            accept="image/*,.pdf"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+          />
+        </label>
       </div>
 
       <div className="space-y-2">
@@ -95,8 +161,8 @@ export default function InquiryForm() {
       </div>
 
       <div className="text-center pt-4">
-        <LuxuryButton type="submit" variant="solid" className="w-full md:w-auto">
-          Submit Inquiry
+        <LuxuryButton type="submit" variant="solid" className="w-full md:w-auto" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit Inquiry"}
         </LuxuryButton>
       </div>
     </form>

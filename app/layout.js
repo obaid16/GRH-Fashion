@@ -33,10 +33,13 @@ export const metadata = {
   description: "Experience the pinnacle of luxury couture, bridal gowns, and exquisite hand-crafted embroidery. Unforgettable runway fashion.",
 };
 
+import SmoothScroll from "@/components/SmoothScroll";
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className={`${playfair.variable} ${cormorant.variable} ${poppins.variable} ${inter.variable} antialiased bg-brand-ivory text-brand-black selection:bg-brand-gold selection:text-white`}>
+        <SmoothScroll />
         <ContextMenuBlocker />
         <LuxuryNavbar />
         <main>{children}</main>
