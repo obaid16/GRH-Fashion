@@ -28,6 +28,38 @@ export default function FashionStory() {
       });
     });
 
+    mm.add("(max-width: 1023px)", () => {
+      // Mobile animations
+      gsap.fromTo(leftRef.current, 
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 1, 
+          scrollTrigger: { 
+            trigger: leftRef.current, 
+            start: "top 85%" 
+          } 
+        }
+      );
+      
+      const images = gsap.utils.toArray(rightRef.current.children);
+      images.forEach((img) => {
+        gsap.fromTo(img,
+          { opacity: 0, scale: 0.95 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            scrollTrigger: {
+              trigger: img,
+              start: "top 80%",
+            }
+          }
+        );
+      });
+    });
+
     return () => mm.revert();
   }, { scope: containerRef });
 

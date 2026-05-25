@@ -43,6 +43,28 @@ export default function RunwayShowcase() {
       };
     });
 
+    mm.add("(max-width: 767px)", () => {
+      // Mobile animations
+      const items = gsap.utils.toArray(sliderRef.current.children);
+      
+      items.forEach((item, i) => {
+        gsap.fromTo(item, 
+          { opacity: 0, y: 50 },
+          { 
+            opacity: 1, 
+            y: 0,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+    });
+
     return () => mm.revert();
   }, { scope: containerRef });
 
