@@ -9,7 +9,7 @@ export default function CinematicBanner() {
       {/* Background Video/Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-fixed scale-105"
-        style={{ backgroundImage: "url('/images/golden-gown.jpg')" }}
+        style={{ backgroundImage: "url('/images/floral-embroidered-dress.png')" }}
       >
         <div className="absolute inset-0 bg-brand-black/40"></div>
       </div>
@@ -23,7 +23,7 @@ export default function CinematicBanner() {
           transition={{ duration: 0.8 }}
           className="text-sm font-poppins text-brand-ivory uppercase tracking-[0.3em] mb-6"
         >
-          The Runway Experience
+          Exclusive Masterpiece
         </motion.h2>
         <motion.h3 
           initial={{ opacity: 0, y: 20 }}
@@ -32,7 +32,7 @@ export default function CinematicBanner() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-5xl md:text-7xl font-playfair text-brand-gold mb-8 uppercase tracking-widest leading-tight"
         >
-          Redefining <br className="hidden md:block" /> Elegance
+          Exquisite <br className="hidden md:block" /> Artistry
         </motion.h3>
         <motion.div 
           initial={{ opacity: 0, height: 0 }}
@@ -48,7 +48,7 @@ export default function CinematicBanner() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="font-cormorant text-2xl md:text-3xl text-brand-ivory italic mb-10"
         >
-          "Where every thread tells a story of passion and heritage."
+          "A timeless creation tailored to reflect your inner beauty."
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

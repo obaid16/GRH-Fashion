@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const InstagramIcon = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -28,13 +32,19 @@ const instagramPosts = [
 export default function InstagramLookbook() {
   return (
     <section className="py-24 overflow-hidden bg-brand-pearl border-y border-brand-gold/10">
-      <div className="text-center mb-16 px-6">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="text-center mb-16 px-6"
+      >
         <h2 className="text-4xl md:text-5xl font-playfair text-brand-black mb-4 uppercase tracking-wider">The GRH <span className="text-brand-gold italic lowercase font-cormorant">World</span></h2>
         <div className="w-16 h-px bg-brand-purple mx-auto mb-6"></div>
         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-brand-gray hover:text-brand-purple transition-colors font-poppins text-xs uppercase tracking-widest">
           <InstagramIcon className="w-4 h-4" /> @GRHFashion
         </a>
-      </div>
+      </motion.div>
 
       <div className="flex w-full overflow-hidden">
         {/* Animated seamless scroll if possible, else just a flex row. Using a simple row for now. */}
