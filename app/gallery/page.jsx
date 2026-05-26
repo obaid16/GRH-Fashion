@@ -6,15 +6,15 @@ import { X } from "lucide-react";
 
 // Using real GRH Fashion images
 const galleryImages = [
-  "/images/couture-gown-red.jpg",
-  "/images/velvet-embroidery-maroon.jpg",
-  "/images/crystal-bodice-gown.jpg",
-  "/images/golden-gown.jpg",
-  "/images/abstract-beaded-fabric.jpg",
-  "/images/couture-gown-purple.jpg",
-  "/images/velvet-embroidery-pink.jpg",
-  "/images/crystal-embroidery.jpg",
-  "/images/bugle-bead-leaves.jpg",
+  "/images/replacement-61.png",
+  "/images/replacement-51.jpg",
+  "/images/replacement-32.jpg",
+  "/images/replacement-40.jpg",
+  "/images/replacement-41.jpg",
+  "/images/replacement-60.png",
+  "/images/replacement-52.jpg",
+  "/images/replacement-31.jpg",
+  "/images/replacement-33.jpg",
 ];
 
 export default function GalleryPage() {
@@ -85,3 +85,4 @@ export default function GalleryPage() {
     </div>
   );
 }
+

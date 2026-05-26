@@ -9,7 +9,7 @@ export default function CinematicBanner() {
       {/* Background Video/Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-fixed scale-105"
-        style={{ backgroundImage: "url('/images/floral-embroidered-dress.png')" }}
+        style={{ backgroundImage: "url('/images/replacement-30.jpg')" }}
       >
         <div className="absolute inset-0 bg-brand-black/40"></div>
       </div>
@@ -64,3 +64,4 @@ export default function CinematicBanner() {
     </section>
   );
 }
+

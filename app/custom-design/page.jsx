@@ -1,15 +1,15 @@
 import InquiryForm from "@/components/InquiryForm";
-import Image from "next/image";
+import LightboxGallery from "@/components/LightboxGallery";
 
 export const metadata = {
   title: "Custom Design Inquiry | GRH Fashion",
 };
 
 const referenceImages = [
-  "/images/floral-embroidered-dress.png",
-  "/images/golden-gown.jpg",
-  "/images/velvet-embroidery-maroon.jpg",
-  "/images/crystal-embroidery.jpg",
+  "/images/replacement-30.jpg",
+  "/images/replacement-40.jpg",
+  "/images/replacement-51.jpg",
+  "/images/replacement-31.jpg",
 ];
 
 export default function CustomDesignPage() {
@@ -30,18 +30,7 @@ export default function CustomDesignPage() {
             <h3 className="text-xs font-poppins text-brand-gold uppercase tracking-[0.2em] mb-2">Inspiration Board</h3>
             <p className="text-brand-gray/80 text-sm font-inter">Explore our signature styles and refer to these aesthetics when describing your dream outfit.</p>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            {referenceImages.map((src, index) => (
-              <div key={index} className="relative h-48 md:h-64 overflow-hidden group">
-                <div className="absolute inset-0 bg-brand-black/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
-                <img 
-                  src={src} 
-                  alt={`Reference Design ${index + 1}`} 
-                  className="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700"
-                />
-              </div>
-            ))}
-          </div>
+          <LightboxGallery images={referenceImages} />
         </div>
 
         {/* Form Section */}
@@ -58,3 +47,4 @@ export default function CustomDesignPage() {
     </div>
   );
 }
+

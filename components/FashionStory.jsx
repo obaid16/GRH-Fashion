@@ -86,7 +86,7 @@ export default function FashionStory() {
       <div ref={rightRef} className="w-full lg:w-1/2 flex flex-col">
         <div className="h-[70vh] lg:h-screen w-full relative">
           <img 
-            src="/images/crystal-embroidery.jpg" 
+            src="/images/replacement-31.jpg" 
             alt="Craftsmanship" 
             className="w-full h-full object-cover filter brightness-90 hover:brightness-100 transition-all duration-700"
           />
@@ -94,7 +94,7 @@ export default function FashionStory() {
         </div>
         <div className="h-[70vh] lg:h-screen w-full relative">
           <img 
-            src="/images/velvet-embroidery-maroon.jpg" 
+            src="/images/replacement-51.jpg" 
             alt="Embroidery Detail" 
             className="w-full h-full object-cover filter brightness-90 hover:brightness-100 transition-all duration-700"
           />
@@ -102,7 +102,7 @@ export default function FashionStory() {
         </div>
         <div className="h-[70vh] lg:h-screen w-full relative">
           <img 
-            src="/images/couture-gown-purple.jpg" 
+            src="/images/replacement-60.png" 
             alt="Final Gown" 
             className="w-full h-full object-cover filter brightness-90 hover:brightness-100 transition-all duration-700"
           />
@@ -112,3 +112,4 @@ export default function FashionStory() {
     </section>
   );
 }
+

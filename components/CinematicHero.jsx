@@ -50,7 +50,7 @@ export default function CinematicHero() {
       <div 
         ref={imageRef}
         className="absolute inset-0 w-full h-[130%] -top-[15%] bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/couture-gown-maroon.jpg')" }}
+        style={{ backgroundImage: "url('/images/replacement-62.png')" }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-brand-black/60 via-brand-black/20 to-brand-black/80 mix-blend-multiply"></div>
       </div>
@@ -117,3 +117,4 @@ export default function CinematicHero() {
     </section>
   );
 }
+

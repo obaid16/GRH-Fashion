@@ -22,11 +22,11 @@ const InstagramIcon = ({ className }) => (
 );
 
 const instagramPosts = [
-  "/images/couture-gown-maroon.jpg",
-  "/images/crystal-bodice-gown.jpg",
-  "/images/abstract-beaded-fabric.jpg",
-  "/images/golden-gown.jpg",
-  "/images/velvet-embroidery-pink.jpg",
+  "/images/replacement-62.png",
+  "/images/replacement-32.jpg",
+  "/images/replacement-41.jpg",
+  "/images/replacement-40.jpg",
+  "/images/replacement-52.jpg",
 ];
 
 export default function InstagramLookbook() {
@@ -66,3 +66,4 @@ export default function InstagramLookbook() {
     </section>
   );
 }
+

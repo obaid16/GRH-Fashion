@@ -35,7 +35,7 @@ export default function ContactPage() {
       <div className="w-full lg:w-1/2 h-[50vh] lg:h-screen relative z-10 flex flex-col justify-end">
         <div 
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/velvet-embroidery-maroon.jpg')" }}
+          style={{ backgroundImage: "url('/images/replacement-51.jpg')" }}
         >
           <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-brand-black via-brand-black/90 to-brand-black/20"></div>
         </div>
@@ -120,3 +120,4 @@ export default function ContactPage() {
     </div>
   );
 }
+

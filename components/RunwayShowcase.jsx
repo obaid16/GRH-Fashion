@@ -11,10 +11,10 @@ if (typeof window !== "undefined") {
 }
 
 const runwayImages = [
-  "/images/couture-gown-red.jpg",
-  "/images/golden-gown.jpg",
-  "/images/couture-gown-purple.jpg",
-  "/images/couture-gown-maroon.jpg",
+  "/images/replacement-61.png",
+  "/images/replacement-40.jpg",
+  "/images/replacement-60.png",
+  "/images/replacement-62.png",
 ];
 
 export default function RunwayShowcase() {
@@ -102,3 +102,4 @@ export default function RunwayShowcase() {
     </section>
   );
 }
+
