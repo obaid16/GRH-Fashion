@@ -12,7 +12,6 @@ if (typeof window !== "undefined") {
 
 const runwayImages = [
   "/images/replacement-61.png",
-  "/images/replacement-40.jpg",
   "/images/replacement-60.png",
   "/images/replacement-62.png",
 ];
@@ -81,9 +80,9 @@ export default function RunwayShowcase() {
         {runwayImages.map((src, index) => (
           <div 
             key={index} 
-            className="w-full md:w-screen h-screen md:h-full flex items-center justify-center p-6 md:p-12 lg:p-24"
+            className="w-full md:w-screen h-auto md:h-full flex items-center justify-center py-8 px-6 md:p-12 lg:p-24"
           >
-            <div className="relative w-full max-w-4xl h-[70vh] md:h-[80vh] overflow-hidden group">
+            <div className="relative w-full max-w-4xl h-[60vh] md:h-[80vh] overflow-hidden group">
               <div className="absolute inset-0 bg-brand-black/10 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
               <img 
                 src={src} 
