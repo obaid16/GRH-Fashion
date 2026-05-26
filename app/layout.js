@@ -37,8 +37,8 @@ import SmoothScroll from "@/components/SmoothScroll";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body className={`${playfair.variable} ${cormorant.variable} ${poppins.variable} ${inter.variable} antialiased bg-brand-ivory text-brand-black selection:bg-brand-gold selection:text-white`}>
+    <html lang="en" data-scroll-behavior="smooth" className="overflow-x-hidden">
+      <body className={`${playfair.variable} ${cormorant.variable} ${poppins.variable} ${inter.variable} antialiased bg-brand-ivory text-brand-black selection:bg-brand-gold selection:text-white overflow-x-hidden w-full relative`}>
         <SmoothScroll />
         <ContextMenuBlocker />
         <LuxuryNavbar />
