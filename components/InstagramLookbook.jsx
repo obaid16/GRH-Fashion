@@ -31,7 +31,7 @@ const instagramPosts = [
 
 export default function InstagramLookbook() {
   return (
-    <section className="py-24 overflow-hidden bg-brand-pearl border-y border-brand-gold/10">
+    <section className="py-12 md:py-24 overflow-hidden bg-brand-pearl border-y border-brand-gold/10">
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

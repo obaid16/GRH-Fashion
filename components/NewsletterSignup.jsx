@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function NewsletterSignup() {
   return (
-    <section className="py-32 px-6 lg:px-8 max-w-4xl mx-auto text-center overflow-hidden">
+    <section className="py-16 md:py-32 px-6 lg:px-8 max-w-4xl mx-auto text-center overflow-hidden">
       <motion.h2 
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

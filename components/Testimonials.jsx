@@ -68,11 +68,11 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="py-32 bg-brand-cream relative overflow-hidden">
+    <section className="py-16 md:py-32 bg-brand-cream relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent"></div>
       
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
-        <div className="mb-16">
+        <div className="mb-10 md:mb-16">
           <h2 className="text-sm font-poppins text-brand-gold uppercase tracking-[0.3em] mb-4">Client Stories</h2>
           <h3 className="text-4xl md:text-5xl font-playfair text-brand-black uppercase tracking-wider">
             Voices of <span className="text-brand-gray italic lowercase font-cormorant">Elegance</span>

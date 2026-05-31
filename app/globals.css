@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-ivory: #FFFDF8;
+  --color-brand-ivory: #F5F2EA;
   --color-brand-beige: #F7E7CE;
-  --color-brand-pearl: #FAF9F6;
+  --color-brand-pearl: #EAE6DF;
   --color-brand-cream: #F8F4EC;
   --color-brand-black: #111111;
   --color-brand-gray: #444444;
@@ -36,7 +36,7 @@
 }
 
 :root {
-  --background: #FFFDF8;
+  --background: #F5F2EA;
   --foreground: #111111;
 }
 

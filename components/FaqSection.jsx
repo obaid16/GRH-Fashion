@@ -27,10 +27,10 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <section className="py-32 bg-brand-pearl">
+    <section className="py-16 md:py-32 bg-brand-pearl">
       <div className="max-w-4xl mx-auto px-6 lg:px-8">
         
-        <div className="text-center mb-20">
+        <div className="text-center mb-10 md:mb-20">
           <motion.h3 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -7,8 +7,8 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="pt-32 pb-0">
-      <div className="px-6 lg:px-8 max-w-7xl mx-auto mb-20 text-center">
+    <div className="pt-24 md:pt-32 pb-0">
+      <div className="px-6 lg:px-8 max-w-7xl mx-auto mb-12 md:mb-20 text-center">
         <h1 className="text-5xl md:text-7xl font-playfair text-brand-gold mb-6 uppercase tracking-widest">Our Story</h1>
         <div className="w-16 h-px bg-brand-purple mx-auto mb-8"></div>
         <p className="font-inter text-brand-gray max-w-2xl mx-auto leading-relaxed">
@@ -16,13 +16,13 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <div className="px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-40">
+      <div className="px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center mb-24 md:mb-40">
         <div className="aspect-[4/5] bg-brand-pearl shadow-sm relative overflow-hidden group">
           <div className="absolute inset-0 bg-brand-gold/10 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
           <img 
-            src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1000&auto=format&fit=crop" 
+            src="/images/floral-embroidered-dress.png" 
             alt="Intricate details"
-            className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
+            className="w-full h-full object-cover transition-all duration-700 scale-100 group-hover:scale-105"
           />
         </div>
         <div className="space-y-8">
@@ -45,32 +45,31 @@ export default function AboutPage() {
       </div>
 
       {/* The Creative Director */}
-      <section className="bg-brand-pearl py-32 border-y border-brand-gold/10">
+      <section className="bg-brand-pearl py-16 md:py-32 border-y border-brand-gold/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="order-2 md:order-1 space-y-8">
-            <h2 className="text-xl font-poppins text-brand-gray uppercase tracking-widest">The Creative Director</h2>
+          <div className="order-2 md:order-1 space-y-8 text-center md:text-left">
+            <h2 className="text-xl font-poppins text-brand-gray uppercase tracking-widest">The Founder</h2>
             <h3 className="text-4xl md:text-5xl font-playfair text-brand-gold">Mastering the Art of Elegance</h3>
             <p className="font-inter text-brand-gray leading-relaxed">
-              With over a decade of experience in high-end couture, our founder envisioned a brand that brings together the rich heritage of traditional Indian embroidery with the sleek, avant-garde silhouettes of modern global fashion.
+              As the founder of GRH Fashion, my philosophy is deeply rooted in personal expression through couture. I believe that every stitch and bead reflects a dedication to perfection, blending the rich heritage of traditional Indian embroidery with modern global fashion.
             </p>
             <p className="font-inter text-brand-gray leading-relaxed">
-              Every collection is a personal narrative, an exploration of textiles, and a celebration of the feminine form.
+              Every collection I create is a personal narrative, an exploration of textiles, and a celebration of the feminine form. My goal is to make every woman feel like a masterpiece when she wears my designs.
             </p>
-            <img src="/images/signature.png" alt="Signature" className="h-12 opacity-50" />
           </div>
-          <div className="order-1 md:order-2 aspect-[3/4] relative overflow-hidden group">
+          <div className="order-1 md:order-2 aspect-square relative overflow-hidden flex items-center justify-center p-8 bg-white rounded-full shadow-sm">
             <img 
-              src="https://images.unsplash.com/photo-1549471013-3364d7ce66ea?q=80&w=1000&auto=format&fit=crop" 
-              alt="The Designer"
-              className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700"
+              src="/images/logo-new.png" 
+              alt="The Founder"
+              className="w-full h-full object-contain transition-all duration-700 hover:scale-105"
             />
           </div>
         </div>
       </section>
 
       {/* The Atelier Process */}
-      <section className="py-32 px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-20">
+      <section className="py-16 md:py-32 px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center mb-12 md:mb-20">
           <h2 className="text-4xl md:text-5xl font-playfair text-brand-black mb-6 uppercase tracking-wider">The <span className="text-brand-gold italic lowercase font-cormorant">Atelier</span> Process</h2>
           <div className="w-16 h-px bg-brand-purple mx-auto"></div>
         </div>
@@ -92,28 +91,28 @@ export default function AboutPage() {
       </section>
 
       {/* Our Values */}
-      <section className="py-32 bg-brand-black text-brand-ivory px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
+      <section className="py-16 md:py-32 bg-brand-pearl text-brand-black px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 text-center">
           <div className="space-y-6">
             <div className="w-12 h-12 rounded-full border border-brand-gold mx-auto flex items-center justify-center text-brand-gold font-playfair text-xl">1</div>
-            <h3 className="text-2xl font-playfair text-brand-gold">Heritage Craft</h3>
-            <p className="font-inter text-brand-ivory/70 text-sm leading-relaxed">Preserving ancient embroidery techniques by employing generational artisans and celebrating traditional craftsmanship.</p>
+            <h3 className="text-2xl font-playfair text-brand-black">Heritage Craft</h3>
+            <p className="font-inter text-brand-gray text-sm leading-relaxed">Preserving ancient embroidery techniques by employing generational artisans and celebrating traditional craftsmanship.</p>
           </div>
           <div className="space-y-6">
             <div className="w-12 h-12 rounded-full border border-brand-gold mx-auto flex items-center justify-center text-brand-gold font-playfair text-xl">2</div>
-            <h3 className="text-2xl font-playfair text-brand-gold">Modern Silhouettes</h3>
-            <p className="font-inter text-brand-ivory/70 text-sm leading-relaxed">Balancing heavy traditional embellishments with sleek, contemporary cuts designed for the modern woman.</p>
+            <h3 className="text-2xl font-playfair text-brand-black">Modern Silhouettes</h3>
+            <p className="font-inter text-brand-gray text-sm leading-relaxed">Balancing heavy traditional embellishments with sleek, contemporary cuts designed for the modern woman.</p>
           </div>
           <div className="space-y-6">
             <div className="w-12 h-12 rounded-full border border-brand-gold mx-auto flex items-center justify-center text-brand-gold font-playfair text-xl">3</div>
-            <h3 className="text-2xl font-playfair text-brand-gold">Sustainable Luxury</h3>
-            <p className="font-inter text-brand-ivory/70 text-sm leading-relaxed">Creating timeless heirloom pieces meant to be passed down through generations, rather than fast-fashion trends.</p>
+            <h3 className="text-2xl font-playfair text-brand-black">Sustainable Luxury</h3>
+            <p className="font-inter text-brand-gray text-sm leading-relaxed">Creating timeless heirloom pieces meant to be passed down through generations, rather than fast-fashion trends.</p>
           </div>
         </div>
       </section>
 
       {/* Grand CTA */}
-      <section className="relative py-40 flex items-center justify-center overflow-hidden">
+      <section className="relative py-24 md:py-40 flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-fixed bg-center"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=2000&auto=format&fit=crop')" }}

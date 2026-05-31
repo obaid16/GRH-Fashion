@@ -47,12 +47,12 @@ const itemVariants = {
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-32 bg-brand-black text-brand-ivory relative overflow-hidden">
+    <section className="py-16 md:py-32 bg-brand-black text-brand-ivory relative overflow-hidden">
       {/* Decorative background element */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-gold/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-24 max-w-3xl mx-auto">
+        <div className="text-center mb-12 md:mb-24 max-w-3xl mx-auto">
           <motion.h3 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ export default function WhyChooseUs() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12"
         >
           {features.map((feature, idx) => (
             <motion.div key={idx} variants={itemVariants} className="group flex flex-col items-center text-center">
@@ -99,7 +99,7 @@ export default function WhyChooseUs() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="mt-32 pt-16 border-t border-brand-ivory/10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
+          className="mt-16 md:mt-32 pt-16 border-t border-brand-ivory/10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
         >
           <div>
             <div className="font-playfair text-4xl md:text-5xl text-brand-gold mb-2">10+</div>

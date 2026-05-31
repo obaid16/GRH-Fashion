@@ -27,10 +27,10 @@ const steps = [
 
 export default function ProcessTimeline() {
   return (
-    <section className="py-32 bg-brand-ivory relative overflow-hidden">
+    <section className="py-16 md:py-32 bg-brand-ivory relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
-        <div className="text-center mb-24 max-w-3xl mx-auto">
+        <div className="text-center mb-12 md:mb-24 max-w-3xl mx-auto">
           <motion.h3 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +55,7 @@ export default function ProcessTimeline() {
           {/* Vertical Line for Desktop */}
           <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-brand-gold/30 -translate-x-1/2"></div>
           
-          <div className="space-y-24 md:space-y-0">
+          <div className="space-y-16 md:space-y-0">
             {steps.map((step, idx) => {
               const isEven = idx % 2 === 0;
               return (

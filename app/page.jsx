@@ -28,15 +28,15 @@ export default function Home() {
       <BrandShowcase />
 
       {/* 3. Featured Collections */}
-      <section className="py-32 px-6 lg:px-8 max-w-7xl mx-auto bg-brand-ivory relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
+      <section className="py-16 md:py-32 px-6 lg:px-8 max-w-7xl mx-auto bg-brand-ivory relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 md:mb-20 gap-6 text-center md:text-left">
           <div className="max-w-3xl">
             <h3 className="text-xs font-poppins text-brand-gold uppercase tracking-[0.3em] mb-4">The Masterpieces</h3>
             <h2 className="text-5xl md:text-7xl font-playfair text-brand-black mb-4 uppercase tracking-wider leading-tight">
               Curated <br/><span className="text-brand-gray italic lowercase font-cormorant">Elegance</span>
             </h2>
           </div>
-          <Link href="/collection" className="flex items-center gap-2 text-brand-black font-poppins text-xs uppercase tracking-widest hover:text-brand-gold transition-colors group pb-2 border-b border-brand-black/30 hover:border-brand-gold">
+          <Link href="/collection" className="flex items-center justify-center md:justify-start gap-2 text-brand-black font-poppins text-xs uppercase tracking-widest hover:text-brand-gold transition-colors group pb-2 border-b border-brand-black/30 hover:border-brand-gold">
             Explore All Creations <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
           </Link>
         </div>
@@ -54,8 +54,8 @@ export default function Home() {
       <CinematicBanner />
 
       {/* 7. Gallery (Preview) */}
-      <section className="py-24 max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
+      <section className="py-12 md:py-24 max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="text-center mb-10 md:mb-16">
           <h3 className="text-xs font-poppins text-brand-gold uppercase tracking-[0.3em] mb-4">A Glimpse</h3>
           <h2 className="text-4xl md:text-5xl font-playfair text-brand-black uppercase tracking-wider mb-6">
             The <span className="text-brand-gray italic lowercase font-cormorant">Archive</span>
