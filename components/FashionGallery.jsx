@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 
-export default function FashionGallery({ images, onImageClick }) {
+export default function FashionGallery({ images = [], onImageClick = () => {} }) {
+  if (!images || images.length === 0) return null;
+
   return (
     <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
       {images.map((img, index) => (

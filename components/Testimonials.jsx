@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -25,36 +26,101 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDirection(1);
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.95
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1
+    },
+    exit: (direction) => ({
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.95
+    })
+  };
+
+  const handleNext = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const handlePrev = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
   return (
-    <section className="py-24 bg-brand-cream relative overflow-hidden">
+    <section className="py-32 bg-brand-cream relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent"></div>
       
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-playfair text-brand-black mb-4">Client Stories</h2>
-          <div className="w-12 h-px bg-brand-purple mx-auto"></div>
+      <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+        <div className="mb-16">
+          <h2 className="text-sm font-poppins text-brand-gold uppercase tracking-[0.3em] mb-4">Client Stories</h2>
+          <h3 className="text-4xl md:text-5xl font-playfair text-brand-black uppercase tracking-wider">
+            Voices of <span className="text-brand-gray italic lowercase font-cormorant">Elegance</span>
+          </h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {testimonials.map((t, i) => (
+        <div className="relative h-[350px] flex items-center justify-center">
+          <AnimatePresence initial={false} custom={direction}>
             <motion.div
-              key={t.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: i * 0.2 }}
-              className="relative p-8 border border-brand-gold/20 bg-white hover:border-brand-gold/40 shadow-sm hover:shadow-md transition-all duration-500"
+              key={currentIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.5 },
+                scale: { duration: 0.5 }
+              }}
+              className="absolute w-full px-8 md:px-16"
             >
-              <Quote className="absolute top-6 right-6 w-8 h-8 text-brand-gold/20" />
-              <p className="font-cormorant text-lg md:text-xl text-brand-gray leading-relaxed italic mb-8 relative z-10">
-                "{t.text}"
+              <Quote className="mx-auto w-12 h-12 text-brand-gold/30 mb-8" />
+              <p className="font-cormorant text-2xl md:text-4xl text-brand-gray leading-relaxed italic mb-8">
+                "{testimonials[currentIndex].text}"
               </p>
               <div>
-                <h4 className="font-playfair text-brand-black text-lg">{t.name}</h4>
-                <p className="font-poppins text-xs uppercase tracking-widest text-brand-gray/70 mt-1">{t.role}</p>
+                <h4 className="font-playfair text-brand-black text-xl mb-1">{testimonials[currentIndex].name}</h4>
+                <p className="font-poppins text-xs uppercase tracking-widest text-brand-gold">{testimonials[currentIndex].role}</p>
               </div>
             </motion.div>
-          ))}
+          </AnimatePresence>
+
+          {/* Controls */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between pointer-events-none px-2">
+            <button 
+              onClick={handlePrev}
+              className="w-12 h-12 rounded-full border border-brand-gold/30 flex items-center justify-center text-brand-gold hover:bg-brand-gold hover:text-white transition-colors duration-300 pointer-events-auto"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button 
+              onClick={handleNext}
+              className="w-12 h-12 rounded-full border border-brand-gold/30 flex items-center justify-center text-brand-gold hover:bg-brand-gold hover:text-white transition-colors duration-300 pointer-events-auto"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
