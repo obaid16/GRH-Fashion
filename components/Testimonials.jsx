@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -33,27 +33,24 @@ export default function Testimonials() {
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
   const slideVariants = {
     enter: (direction) => ({
-      x: direction > 0 ? 1000 : -1000,
+      x: direction > 0 ? 50 : -50,
       opacity: 0,
-      scale: 0.95
     }),
     center: {
       zIndex: 1,
       x: 0,
       opacity: 1,
-      scale: 1
     },
     exit: (direction) => ({
       zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
+      x: direction < 0 ? 50 : -50,
       opacity: 0,
-      scale: 0.95
     })
   };
 
@@ -68,59 +65,65 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="py-16 md:py-32 bg-brand-cream relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent"></div>
-      
-      <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
-        <div className="mb-10 md:mb-16">
-          <h2 className="text-sm font-poppins text-brand-gold uppercase tracking-[0.3em] mb-4">Client Stories</h2>
-          <h3 className="text-4xl md:text-5xl font-playfair text-brand-black uppercase tracking-wider">
-            Voices of <span className="text-brand-gray italic lowercase font-cormorant">Elegance</span>
-          </h3>
-        </div>
-
-        <div className="relative h-[350px] flex items-center justify-center">
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.div
-              key={currentIndex}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.5 },
-                scale: { duration: 0.5 }
-              }}
-              className="absolute w-full px-8 md:px-16"
-            >
-              <Quote className="mx-auto w-12 h-12 text-brand-gold/30 mb-8" />
-              <p className="font-cormorant text-2xl md:text-4xl text-brand-gray leading-relaxed italic mb-8">
-                "{testimonials[currentIndex].text}"
-              </p>
-              <div>
-                <h4 className="font-playfair text-brand-black text-xl mb-1">{testimonials[currentIndex].name}</h4>
-                <p className="font-poppins text-xs uppercase tracking-widest text-brand-gold">{testimonials[currentIndex].role}</p>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Controls */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between pointer-events-none px-2">
-            <button 
-              onClick={handlePrev}
-              className="w-12 h-12 rounded-full border border-brand-gold/30 flex items-center justify-center text-brand-gold hover:bg-brand-gold hover:text-white transition-colors duration-300 pointer-events-auto"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button 
-              onClick={handleNext}
-              className="w-12 h-12 rounded-full border border-brand-gold/30 flex items-center justify-center text-brand-gold hover:bg-brand-gold hover:text-white transition-colors duration-300 pointer-events-auto"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
+    <section className="py-24 md:py-40 bg-brand-purple relative overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
+          
+          <div className="lg:col-span-4 flex flex-col justify-center">
+            <h2 className="text-[10px] md:text-xs font-poppins text-brand-gold uppercase tracking-[0.4em] mb-6">
+              Client Stories
+            </h2>
+            <h3 className="text-4xl md:text-5xl lg:text-6xl font-playfair text-brand-ivory uppercase tracking-wider leading-[1.1] mb-8">
+              Voices of <br/>
+              <span className="text-brand-gray italic lowercase font-cormorant">Elegance</span>
+            </h3>
+            
+            <div className="flex gap-4">
+              <button 
+                onClick={handlePrev}
+                className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory hover:bg-brand-ivory hover:text-brand-purple transition-all duration-500"
+              >
+                <ChevronLeft className="w-4 h-4" strokeWidth={1} />
+              </button>
+              <button 
+                onClick={handleNext}
+                className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory hover:bg-brand-ivory hover:text-brand-purple transition-all duration-500"
+              >
+                <ChevronRight className="w-4 h-4" strokeWidth={1} />
+              </button>
+            </div>
           </div>
+
+          <div className="lg:col-span-8 relative h-[300px] md:h-[250px] flex items-center">
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={currentIndex}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 200, damping: 30 },
+                  opacity: { duration: 0.8 }
+                }}
+                className="absolute w-full"
+              >
+                <div className="w-12 h-[1px] bg-brand-gold mb-8"></div>
+                <p className="font-cormorant text-3xl md:text-5xl text-brand-ivory leading-[1.3] italic mb-10 max-w-3xl">
+                  "{testimonials[currentIndex].text}"
+                </p>
+                <div className="flex items-center gap-6">
+                  <div className="w-8 h-[1px] bg-brand-ivory/30"></div>
+                  <div>
+                    <h4 className="font-poppins text-xs font-medium uppercase tracking-[0.2em] text-brand-ivory mb-1">{testimonials[currentIndex].name}</h4>
+                    <p className="font-inter text-[10px] uppercase tracking-[0.15em] text-brand-gray">{testimonials[currentIndex].role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
         </div>
       </div>
     </section>

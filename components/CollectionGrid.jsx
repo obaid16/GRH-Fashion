@@ -18,31 +18,39 @@ export default function CollectionGrid({ products }) {
   });
 
   return (
-    <div>
-      <div className="flex flex-wrap justify-center gap-4 md:gap-8 font-poppins text-xs uppercase tracking-widest text-brand-gray mb-16">
+    <div className="w-full relative">
+      <div className="flex flex-wrap justify-center gap-6 md:gap-12 font-poppins text-[10px] md:text-xs uppercase tracking-[0.2em] text-brand-gray mb-16 md:mb-24">
         {categories.map(cat => (
           <button
             key={cat}
             onClick={() => setFilter(cat)}
-            className={`cursor-pointer pb-1 transition-colors ${
-              filter === cat ? "text-brand-purple border-b border-brand-purple font-medium" : "hover:text-brand-purple"
+            className={`cursor-pointer pb-2 transition-all duration-500 relative ${
+              filter === cat ? "text-brand-black font-medium" : "hover:text-brand-black"
             }`}
           >
             {cat}
+            <span 
+              className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[1px] bg-brand-black transition-all duration-500 ${
+                filter === cat ? "w-full" : "w-0"
+              }`} 
+            />
           </button>
         ))}
       </div>
 
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+      <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-20 sm:gap-y-12">
         <AnimatePresence mode="popLayout">
-          {filteredProducts.map((product) => (
+          {filteredProducts.map((product, index) => (
             <motion.div
               key={product.id}
               layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className={`w-full ${
+                index % 3 === 1 ? "sm:mt-16 lg:mt-32" : index % 3 === 2 ? "lg:mt-16" : ""
+              }`}
             >
               <ProductCard product={product} />
             </motion.div>

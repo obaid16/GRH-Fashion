@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
-import LuxuryButton from "./LuxuryButton";
+import { ArrowRight } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -15,12 +15,13 @@ if (typeof window !== "undefined") {
 export default function CinematicHero() {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
-  const textRef = useRef(null);
+  const contentRef = useRef(null);
 
   useGSAP(() => {
     // Parallax effect on the background image
     gsap.to(imageRef.current, {
-      yPercent: 30,
+      yPercent: 15,
+      scale: 1.05,
       ease: "none",
       scrollTrigger: {
         trigger: containerRef.current,
@@ -30,11 +31,11 @@ export default function CinematicHero() {
       },
     });
 
-    // Fade out text on scroll
-    gsap.to(textRef.current, {
+    // Fade and translate text on scroll
+    gsap.to(contentRef.current, {
       opacity: 0,
-      y: -50,
-      ease: "none",
+      y: -80,
+      ease: "power2.out",
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
@@ -49,70 +50,95 @@ export default function CinematicHero() {
       {/* Background Image with GSAP Parallax */}
       <div 
         ref={imageRef}
-        className="absolute inset-0 w-full h-[130%] -top-[15%] bg-cover bg-center"
+        className="absolute inset-0 w-full h-[115%] -top-[5%] bg-cover bg-center md:bg-top origin-bottom"
         style={{ backgroundImage: "url('/images/replacement-62.png')" }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-black/60 via-brand-black/20 to-brand-black/80 mix-blend-multiply"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/20 to-brand-black/40 mix-blend-multiply"></div>
       </div>
 
       {/* Noise overlay for cinematic feel */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }}></div>
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none mix-blend-overlay" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }}></div>
 
-      {/* Content */}
-      <div ref={textRef} className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-        >
-          <h2 className="text-xs md:text-sm font-poppins text-brand-gold uppercase tracking-[0.4em] mb-8">
-            Luxury Couture • Handcrafted Elegance
-          </h2>
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-        >
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-playfair text-brand-ivory uppercase tracking-widest leading-[1.1] mb-12 drop-shadow-2xl">
-            Explore Your <br/> <span className="text-brand-gold italic lowercase font-cormorant">True Style</span>
-          </h1>
-        </motion.div>
+      {/* Content - Asymmetrical Editorial Layout */}
+      <div ref={contentRef} className="relative z-10 h-full w-full max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col justify-end pb-24 md:pb-32">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+          
+          <div className="md:col-span-8 lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+              className="flex items-center gap-4 mb-6 md:mb-10"
+            >
+              <div className="w-12 h-[1px] bg-brand-gold"></div>
+              <h2 className="text-[10px] md:text-xs font-poppins text-brand-gold uppercase tracking-[0.4em]">
+                Collection 2026
+              </h2>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+            >
+              <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-playfair text-brand-ivory uppercase tracking-wider leading-[1.05] mb-8">
+                The Art Of <br/>
+                <span className="text-brand-gold/90 italic lowercase font-cormorant ml-8 md:ml-16 block md:inline">Elegance</span>
+              </h1>
+            </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 1 }}
-          className="flex flex-col sm:flex-row gap-6"
-        >
-          <Link href="/collection">
-            <button className="group relative px-10 py-4 overflow-hidden border border-brand-gold bg-brand-gold/10 backdrop-blur-md">
-              <div className="absolute inset-0 w-full h-full bg-brand-gold scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out"></div>
-              <span className="relative z-10 font-poppins text-xs uppercase tracking-widest text-brand-ivory group-hover:text-brand-black transition-colors duration-500">
-                Explore Collection
-              </span>
-            </button>
-          </Link>
-          <Link href="/contact">
-            <button className="group relative px-10 py-4 overflow-hidden border border-brand-ivory/30 hover:border-brand-ivory/80 transition-colors duration-500 backdrop-blur-md">
-              <span className="relative z-10 font-poppins text-xs uppercase tracking-widest text-brand-ivory transition-colors duration-500">
-                Book Consultation
-              </span>
-            </button>
-          </Link>
-        </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
+              className="max-w-md hidden md:block mb-10"
+            >
+              <p className="font-inter text-sm text-brand-ivory/70 leading-relaxed font-light">
+                Discover the pinnacle of luxury couture, blending timeless silhouettes with masterful, hand-crafted embroidery tailored for the modern muse.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 1 }}
+              className="flex flex-wrap items-center gap-6"
+            >
+              <Link href="/collection">
+                <button className="group relative flex items-center gap-4 px-8 py-4 border border-brand-ivory/30 hover:border-brand-ivory transition-colors duration-500 backdrop-blur-sm bg-brand-ivory/5">
+                  <span className="font-poppins text-[10px] uppercase tracking-[0.25em] text-brand-ivory">
+                    Explore Collection
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-brand-ivory group-hover:translate-x-1 transition-transform duration-500" strokeWidth={1.5} />
+                </button>
+              </Link>
+            </motion.div>
+          </div>
+
+          <div className="md:col-span-4 lg:col-span-5 hidden md:flex flex-col items-end justify-end pb-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="text-right"
+            >
+              <p className="font-cormorant italic text-2xl text-white/60 mb-2">"True luxury requires genuine materials and the craftsman's sincerity."</p>
+              <div className="w-8 h-[1px] bg-brand-gold ml-auto mb-2"></div>
+              <span className="font-poppins text-[9px] uppercase tracking-[0.3em] text-brand-gold">GRH Atelier</span>
+            </motion.div>
+          </div>
+
+        </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Elegant Scroll Indicator */}
       <motion.div 
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-4"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
+        transition={{ delay: 1.5, duration: 1.5 }}
       >
-        <span className="font-poppins text-[10px] text-brand-ivory/50 uppercase tracking-[0.3em]">Scroll</span>
-        <div className="w-px h-16 bg-gradient-to-b from-brand-ivory/50 to-transparent"></div>
+        <div className="w-[1px] h-24 bg-gradient-to-b from-brand-ivory/30 to-transparent"></div>
       </motion.div>
     </section>
   );
