@@ -29,8 +29,54 @@ const inter = Inter({
 import ContextMenuBlocker from "@/components/ContextMenuBlocker";
 
 export const metadata = {
-  title: "GRH Fashion | Luxury Couture & Embroidery",
+  metadataBase: new URL('https://grhfashion.com'),
+  title: {
+    default: "GRH Fashion | Luxury Couture & Embroidery",
+    template: "%s | GRH Fashion",
+  },
   description: "Experience the pinnacle of luxury couture, bridal gowns, and exquisite hand-crafted embroidery. Unforgettable runway fashion.",
+  keywords: ["luxury fashion", "couture", "bridal gowns", "embroidery", "designer dresses", "GRH Fashion", "bespoke clothing"],
+  authors: [{ name: "GRH Atelier" }],
+  creator: "GRH Fashion",
+  publisher: "GRH Fashion",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: "GRH Fashion | Luxury Couture",
+    description: "Experience the pinnacle of luxury couture and exquisite hand-crafted embroidery.",
+    url: "https://grhfashion.com",
+    siteName: "GRH Fashion",
+    images: [
+      {
+        url: "/images/logo-new.png",
+        width: 1200,
+        height: 630,
+        alt: "GRH Fashion Logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GRH Fashion | Luxury Couture",
+    description: "Experience the pinnacle of luxury couture and exquisite hand-crafted embroidery.",
+    images: ["/images/logo-new.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 import SmoothScroll from "@/components/SmoothScroll";
