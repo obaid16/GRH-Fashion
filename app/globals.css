@@ -128,7 +128,7 @@ img {
 }
 
 /* Sidebar layout panel */
-.admin-theme div[class*="0E0E0E"] {
+.admin-theme [class*="0E0E0E"] {
   background-color: #EAE5DE !important; /* soft cream sidebar */
   border-color: rgba(172, 141, 93, 0.15) !important;
 }
@@ -151,7 +151,7 @@ img {
 }
 
 /* Cards & panels backdrop */
-.admin-theme div[class*="0F0E0E"] {
+.admin-theme [class*="0F0E0E"] {
   background-color: rgba(255, 255, 255, 0.75) !important;
   border-color: rgba(172, 141, 93, 0.15) !important;
   backdrop-filter: blur(12px) !important;
@@ -275,4 +275,9 @@ img {
 .admin-theme div[class*="bg-black/60"],
 .admin-theme div[class*="bg-black/70"] {
   background-color: rgba(15, 14, 14, 0.5) !important;
+}
+
+/* Lock scrolling on the main content layout when z-50 fixed overlays (drawers/modals) are open */
+body:has([class*="z-50"]) main {
+  overflow: hidden !important;
 }

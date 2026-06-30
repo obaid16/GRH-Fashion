@@ -56,6 +56,35 @@ export default function AdminLayout({ children }) {
     loadSession();
   }, [pathname, router]);
 
+  // Global scroll lock for modals and drawers
+  useEffect(() => {
+    const checkScrollLock = () => {
+      // Find active z-50 overlay or drawer wrappers
+      const overlays = document.querySelectorAll('.fixed.z-50, [class*="fixed"][class*="z-50"]');
+      if (overlays.length > 0) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    };
+
+    checkScrollLock();
+
+    const observer = new MutationObserver(() => {
+      checkScrollLock();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    return () => {
+      observer.disconnect();
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   const handleLogout = async () => {
     const res = await adminLogout();
     if (res.success) {

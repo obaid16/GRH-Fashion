@@ -243,7 +243,7 @@ export default function BlogCMSPage() {
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsOpen(false)}></div>
 
           {/* Panel */}
-          <div className="w-full max-w-3xl bg-[#0E0E0E] h-full shadow-2xl relative z-10 border-l border-white/5 overflow-y-auto flex flex-col animate-slideIn">
+          <div className="w-full max-w-3xl bg-[#0E0E0E] h-full shadow-2xl relative z-10 border-l border-white/5 overflow-y-auto animate-slideIn">
             <div className="p-6 border-b border-white/5 flex items-center justify-between">
               <h3 className="text-base font-playfair text-brand-ivory uppercase tracking-widest">
                 {editingId ? "Edit Story" : "Compose Atelier Story"}

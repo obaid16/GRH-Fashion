@@ -52,29 +52,78 @@ export default function ProductsClient({ categories, collections }) {
   const [formImages, setFormImages] = useState([]);
   const [formThumbnail, setFormThumbnail] = useState("");
 
-  // Fetch Products
-  const fetchProducts = async () => {
-    setLoading(true);
-    const res = await getProducts({
-      search,
-      category,
-      collectionName,
-      status,
-      sort,
-      page,
-      limit: 8,
-    });
-    if (res.success) {
-      setProducts(res.products);
-      setTotalPages(res.pages);
-      setTotalProducts(res.total);
-    }
-    setLoading(false);
-  };
+  const [trigger, setTrigger] = useState(0);
 
   useEffect(() => {
-    fetchProducts();
-  }, [search, category, collectionName, status, sort, page]);
+    let active = true;
+    async function loadData() {
+      const res = await getProducts({
+        search,
+        category,
+        collectionName,
+        status,
+        sort,
+        page,
+        limit: 8,
+      });
+      if (res.success && active) {
+        setProducts(res.products);
+        setTotalPages(res.pages);
+        setTotalProducts(res.total);
+      }
+      if (active) {
+        setLoading(false);
+      }
+    }
+    loadData();
+    return () => {
+      active = false;
+    };
+  }, [search, category, collectionName, status, sort, page, trigger]);
+
+  // Modal scroll lock and keyboard navigation helpers
+  useEffect(() => {
+    if (!formOpen) return;
+
+    // 1. Lock html, body and main background scrolling
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const mainEl = document.querySelector("main");
+    const originalMainOverflow = mainEl ? mainEl.style.overflow : "";
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    if (mainEl) {
+      mainEl.style.overflow = "hidden";
+    }
+
+    // 2. Keyboard listeners: ESC to close, Arrow/Space background scroll prevention
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setFormOpen(false);
+      }
+      
+      // Prevent background scrolling via Spacebar or Arrow keys
+      if (["Space", "ArrowUp", "ArrowDown", "PageUp", "PageDown"].includes(e.code)) {
+        const active = document.activeElement;
+        const isInput = active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA" || active.tagName === "SELECT");
+        if (!isInput && !e.target.closest(".scrollable-form-body")) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown, { passive: false });
+
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      if (mainEl) {
+        mainEl.style.overflow = originalMainOverflow;
+      }
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [formOpen]);
 
   // Handle Search Change with Debounce or inline
   const handleSearch = (e) => {
@@ -143,7 +192,8 @@ export default function ProductsClient({ categories, collections }) {
     if (!confirm("Are you sure you want to duplicate this product?")) return;
     const res = await duplicateProduct(id);
     if (res.success) {
-      fetchProducts();
+      setLoading(true);
+      setTrigger(prev => prev + 1);
     } else {
       alert(res.error || "Duplication failed");
     }
@@ -154,7 +204,8 @@ export default function ProductsClient({ categories, collections }) {
     if (!confirm("Are you sure you want to delete this product?")) return;
     const res = await deleteProduct(id);
     if (res.success) {
-      fetchProducts();
+      setLoading(true);
+      setTrigger(prev => prev + 1);
     } else {
       alert(res.error || "Delete failed");
     }
@@ -166,7 +217,8 @@ export default function ProductsClient({ categories, collections }) {
     const res = await bulkDeleteProducts(selectedIds);
     if (res.success) {
       setSelectedIds([]);
-      fetchProducts();
+      setLoading(true);
+      setTrigger(prev => prev + 1);
     } else {
       alert(res.error || "Bulk deletion failed");
     }
@@ -237,7 +289,8 @@ export default function ProductsClient({ categories, collections }) {
 
     if (res.success) {
       setFormOpen(false);
-      fetchProducts();
+      setLoading(true);
+      setTrigger(prev => prev + 1);
     } else {
       setErrorMsg(res.error || "Failed to save product.");
     }
@@ -391,6 +444,7 @@ export default function ProductsClient({ categories, collections }) {
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-14 bg-[#161515] border border-white/5 rounded overflow-hidden flex-shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={p.thumbnail || p.images[0] || "/images/logo-new.png"} alt={p.name} className="w-full h-full object-cover" />
                         </div>
                         <div className="min-w-0">
@@ -497,30 +551,32 @@ export default function ProductsClient({ categories, collections }) {
         )}
       </div>
 
-      {/* Slide-out Edit/Create Panel Panel */}
+      {/* Centered Product Editor Dialog Modal */}
       {formOpen && (
-        <div className="fixed inset-0 z-50 flex justify-end">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6">
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setFormOpen(false)}></div>
           
-          {/* Panel */}
-          <div className="w-full max-w-3xl bg-[#0E0E0E] h-full shadow-2xl relative z-10 border-l border-white/5 overflow-y-auto flex flex-col animate-slideIn">
-            <div className="p-6 border-b border-white/5 flex items-center justify-between">
-              <h3 className="text-base font-playfair text-brand-ivory uppercase tracking-widest">
+          {/* Dialog Container Form */}
+          <form onSubmit={handleFormSubmit} className="w-full max-w-5xl bg-[#0E0E0E] max-h-[90vh] shadow-2xl relative z-10 border border-white/5 rounded-2xl flex flex-col animate-slide-up overflow-hidden">
+            {/* Sticky Header */}
+            <div className="p-6 border-b border-white/5 flex items-center justify-between bg-[#0F0E0E]/80 backdrop-blur-md shrink-0">
+              <h3 className="text-base font-playfair text-brand-ivory uppercase tracking-widest font-semibold">
                 {editingProduct ? `Edit "${editingProduct.name}"` : "New Atelier Creation"}
               </h3>
-              <button onClick={() => setFormOpen(false)} className="text-brand-gray hover:text-brand-ivory">
+              <button type="button" onClick={() => setFormOpen(false)} className="text-brand-gray hover:text-brand-ivory">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {errorMsg && (
-              <div className="p-4 mx-6 mt-6 bg-red-950/20 border border-red-500/20 text-red-400 text-xs font-inter rounded-lg">
+              <div className="p-4 mx-6 mt-4 bg-red-950/20 border border-red-500/20 text-red-400 text-xs font-inter rounded-lg">
                 {errorMsg}
               </div>
             )}
 
-            <form onSubmit={handleFormSubmit} className="p-6 space-y-6 flex-1">
+            {/* Scrollable Form Content Body */}
+            <div className="p-6 space-y-6 overflow-y-auto flex-1 scrollable-form-body max-h-[calc(90vh-140px)]">
               {/* Basic Fields */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -821,6 +877,7 @@ export default function ProductsClient({ categories, collections }) {
                   <div className="border border-white/5 p-4 rounded-lg">
                     <span className="block text-[9px] font-poppins text-brand-gray uppercase tracking-widest mb-2">Thumbnail (Main Image)</span>
                     <div className="relative w-20 h-24 rounded border border-brand-gold/30 overflow-hidden group">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={formThumbnail} alt="Thumbnail Preview" className="w-full h-full object-cover" />
                       <button
                         type="button"
@@ -840,6 +897,7 @@ export default function ProductsClient({ categories, collections }) {
                     <div className="flex flex-wrap gap-3">
                       {formImages.map((imgUrl, idx) => (
                         <div key={idx} className="relative w-16 h-20 rounded border border-white/5 overflow-hidden group">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={imgUrl} alt="Gallery Preview" className="w-full h-full object-cover" />
                           <button
                             type="button"
@@ -882,25 +940,26 @@ export default function ProductsClient({ categories, collections }) {
                 </div>
               </div>
 
-              {/* Buttons */}
-              <div className="flex gap-4 pt-4 border-t border-white/5">
-                <button
-                  type="submit"
-                  disabled={formLoading || uploadingImages}
-                  className="flex-1 bg-brand-gold hover:bg-brand-gold/90 text-brand-black text-xs font-poppins font-semibold uppercase tracking-widest py-3.5 rounded transition-colors disabled:opacity-50"
-                >
-                  {formLoading ? "Saving Creation..." : "Save Product"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setFormOpen(false)}
-                  className="px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/5 rounded text-xs font-poppins font-semibold uppercase tracking-wider text-brand-ivory transition-colors"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
+            </div>
+
+            {/* Sticky Footer */}
+            <div className="p-6 border-t border-white/5 flex gap-4 bg-[#0F0E0E]/80 backdrop-blur-md shrink-0">
+              <button
+                type="submit"
+                disabled={formLoading || uploadingImages}
+                className="flex-1 bg-brand-gold hover:bg-brand-gold/90 text-brand-black text-xs font-poppins font-semibold uppercase tracking-widest py-3.5 rounded transition-colors disabled:opacity-50"
+              >
+                {formLoading ? "Saving Creation..." : "Save Product"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setFormOpen(false)}
+                className="px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/5 rounded text-xs font-poppins font-semibold uppercase tracking-wider text-brand-ivory transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
       )}
     </div>
