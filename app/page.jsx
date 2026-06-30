@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import LoadingScreen from "@/components/LoadingScreen";
 import CinematicHero from "@/components/CinematicHero";
 import BrandShowcase from "@/components/BrandShowcase";

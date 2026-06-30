@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import CollectionGrid from "@/components/CollectionGrid";
 import connectDB from "@/lib/db";
 import { getProducts } from "@/actions/product";

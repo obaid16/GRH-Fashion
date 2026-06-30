@@ -25,10 +25,10 @@ export async function generateStaticParams() {
 export default async function ProductDetailsPage({ params }) {
   const resolvedParams = await params;
   
-  await connectDB();
   let product = null;
   
   try {
+    await connectDB();
     const dbProduct = await Product.findOne({ slug: resolvedParams.id });
     if (dbProduct) {
       product = {
