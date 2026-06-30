@@ -2,8 +2,21 @@ import content from "@/data/content.json";
 import LuxuryButton from "@/components/LuxuryButton";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import connectDB from "@/lib/db";
+import Product from "@/models/Product";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  try {
+    await connectDB();
+    const products = await Product.find({ status: "Published" });
+    if (products.length > 0) {
+      return products.map((product) => ({
+        id: product.slug,
+      }));
+    }
+  } catch (err) {
+    console.error("Static params generation failed, falling back to JSON:", err);
+  }
   return content.products.map((product) => ({
     id: product.id,
   }));
@@ -11,10 +24,33 @@ export function generateStaticParams() {
 
 export default async function ProductDetailsPage({ params }) {
   const resolvedParams = await params;
-  const product = content.products.find((p) => p.id === resolvedParams.id);
+  
+  await connectDB();
+  let product = null;
+  
+  try {
+    const dbProduct = await Product.findOne({ slug: resolvedParams.id });
+    if (dbProduct) {
+      product = {
+        id: dbProduct.slug,
+        name: dbProduct.name,
+        category: dbProduct.category,
+        image: dbProduct.thumbnail || dbProduct.images[0] || "/images/logo-new.png",
+        description: dbProduct.description,
+        materials: dbProduct.tags && dbProduct.tags.length > 0 ? dbProduct.tags : [dbProduct.fabric || "Premium Silk"],
+      };
+    }
+  } catch (err) {
+    console.error("Error querying product details:", err);
+  }
 
   if (!product) {
-    notFound();
+    const fallback = content.products.find((p) => p.id === resolvedParams.id);
+    if (fallback) {
+      product = fallback;
+    } else {
+      notFound();
+    }
   }
 
   return (

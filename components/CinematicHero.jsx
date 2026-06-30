@@ -12,7 +12,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
-export default function CinematicHero() {
+export default function CinematicHero({ content }) {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
   const contentRef = useRef(null);
@@ -34,7 +34,7 @@ export default function CinematicHero() {
     // Fade and translate text on scroll
     gsap.to(contentRef.current, {
       opacity: 0,
-      y: -50,
+      y: -55,
       ease: "power2.out",
       scrollTrigger: {
         trigger: containerRef.current,
@@ -45,13 +45,22 @@ export default function CinematicHero() {
     });
   }, { scope: containerRef });
 
+  const bgImage = content?.backgroundImage || '/images/replacement-62.png';
+  const subheading = content?.subheading || 'Collection 2026';
+  const heading = content?.heading || 'The Art Of Elegance';
+  const description = content?.description || 'Discover the pinnacle of luxury couture, blending timeless silhouettes with masterful, hand-crafted embroidery tailored for the modern muse.';
+  const ctaText = content?.ctaText || 'Explore Collection';
+  const ctaLink = content?.ctaLink || '/collection';
+  const quote = content?.quote || '"True luxury requires genuine materials and the craftsman\'s sincerity."';
+  const author = content?.author || 'GRH Atelier';
+
   return (
     <section ref={containerRef} className="relative w-full h-screen min-h-[600px] overflow-hidden bg-brand-black">
       {/* Background Image with GSAP Parallax */}
       <div 
         ref={imageRef}
         className="absolute inset-0 w-full h-[115%] -top-[5%] bg-cover bg-center origin-bottom"
-        style={{ backgroundImage: "url('/images/replacement-62.png')" }}
+        style={{ backgroundImage: `url('${bgImage}')` }}
       >
         {/* Stronger gradient overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-brand-black/90 via-brand-black/50 to-brand-black/20"></div>
@@ -74,7 +83,7 @@ export default function CinematicHero() {
             >
               <div className="w-12 h-[1px] bg-brand-gold"></div>
               <h2 className="text-[10px] md:text-xs font-poppins text-brand-gold uppercase tracking-[0.4em]">
-                Collection 2026
+                {subheading}
               </h2>
             </motion.div>
             
@@ -83,9 +92,13 @@ export default function CinematicHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-playfair text-brand-ivory uppercase tracking-wider leading-[1.1] mb-6">
-                The Art Of <br/>
-                <span className="text-brand-gold/90 italic lowercase font-cormorant ml-8 md:ml-12 block md:inline">Elegance</span>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-playfair text-brand-ivory uppercase tracking-wider leading-[1.1] mb-6">
+                {heading.includes("Elegance") ? (
+                  <>
+                    The Art Of <br/>
+                    <span className="text-brand-gold/90 italic lowercase font-cormorant ml-8 md:ml-12 block md:inline font-light">Elegance</span>
+                  </>
+                ) : heading}
               </h1>
             </motion.div>
 
@@ -96,7 +109,7 @@ export default function CinematicHero() {
               className="max-w-md mb-8"
             >
               <p className="font-inter text-sm text-brand-ivory/80 leading-relaxed font-light">
-                Discover the pinnacle of luxury couture, blending timeless silhouettes with masterful, hand-crafted embroidery tailored for the modern muse.
+                {description}
               </p>
             </motion.div>
 
@@ -106,10 +119,10 @@ export default function CinematicHero() {
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 1 }}
               className="flex flex-wrap items-center gap-6"
             >
-              <Link href="/collection">
+              <Link href={ctaLink}>
                 <button className="group relative flex items-center gap-4 px-8 py-4 border border-brand-ivory/30 hover:border-brand-ivory transition-colors duration-500 backdrop-blur-sm bg-brand-ivory/5">
                   <span className="font-poppins text-[10px] uppercase tracking-[0.25em] text-brand-ivory">
-                    Explore Collection
+                    {ctaText}
                   </span>
                   <ArrowRight className="w-4 h-4 text-brand-ivory group-hover:translate-x-1 transition-transform duration-500" strokeWidth={1.5} />
                 </button>
@@ -124,9 +137,9 @@ export default function CinematicHero() {
               transition={{ delay: 1.2, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
               className="text-right max-w-xs"
             >
-              <p className="font-cormorant italic text-2xl text-brand-ivory/70 mb-4 leading-snug">"True luxury requires genuine materials and the craftsman's sincerity."</p>
+              <p className="font-cormorant italic text-2xl text-brand-ivory/70 mb-4 leading-snug">{quote}</p>
               <div className="w-8 h-[1px] bg-brand-gold ml-auto mb-2"></div>
-              <span className="font-poppins text-[9px] uppercase tracking-[0.3em] text-brand-gold">GRH Atelier</span>
+              <span className="font-poppins text-[9px] uppercase tracking-[0.3em] text-brand-gold">{author}</span>
             </motion.div>
           </div>
 

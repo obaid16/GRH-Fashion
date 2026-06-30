@@ -1,9 +1,37 @@
 "use client";
 
+import { useState } from "react";
 import LuxuryButton from "./LuxuryButton";
 import { motion } from "framer-motion";
 
 export default function NewsletterSignup() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState(""); // loading, success, error
+  const [msg, setMsg] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus("loading");
+
+    try {
+      const { addSubscriber } = await import("@/actions/newsletter");
+      const res = await addSubscriber(email);
+      if (res.success) {
+        setStatus("success");
+        setMsg(res.message);
+        setEmail("");
+      } else {
+        setStatus("error");
+        setMsg(res.error || "Failed to subscribe.");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+      setMsg("Failed to connect. Please try again.");
+    }
+  };
+
   return (
     <section className="py-16 md:py-32 px-6 lg:px-8 max-w-4xl mx-auto text-center overflow-hidden">
       <motion.h2 
@@ -32,23 +60,41 @@ export default function NewsletterSignup() {
         Subscribe to our newsletter to receive exclusive invitations to trunk shows, early access to new collections, and behind-the-scenes glimpses of our atelier.
       </motion.p>
       
-      <motion.form 
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        className="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto"
-      >
-        <input 
-          type="email" 
-          placeholder="Enter your email address" 
-          required
-          className="flex-1 bg-transparent border-b border-brand-gold/50 pb-3 pt-2 px-4 text-brand-black focus:outline-none focus:border-brand-purple hover:border-brand-gold transition-colors placeholder:text-brand-gray/50 font-inter text-sm"
-        />
-        <LuxuryButton type="button" variant="outline" className="shrink-0 px-8">
-          Subscribe
-        </LuxuryButton>
-      </motion.form>
+      {status === "success" ? (
+        <motion.p
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-sm font-poppins text-brand-gold uppercase tracking-wider font-semibold"
+        >
+          {msg}
+        </motion.p>
+      ) : (
+        <motion.form 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          onSubmit={handleSubmit}
+          className="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto"
+        >
+          <input 
+            type="email" 
+            placeholder="Enter your email address" 
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={status === "loading"}
+            className="flex-1 bg-transparent border-b border-brand-gold/50 pb-3 pt-2 px-4 text-brand-black focus:outline-none focus:border-brand-purple hover:border-brand-gold transition-colors placeholder:text-brand-gray/50 font-inter text-sm"
+          />
+          <LuxuryButton type="submit" variant="outline" className="shrink-0 px-8" disabled={status === "loading"}>
+            {status === "loading" ? "Subscribing..." : "Subscribe"}
+          </LuxuryButton>
+        </motion.form>
+      )}
+
+      {status === "error" && (
+        <p className="text-xs text-red-500 font-inter mt-4">{msg}</p>
+      )}
     </section>
   );
 }

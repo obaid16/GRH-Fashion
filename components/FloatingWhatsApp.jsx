@@ -1,8 +1,12 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 export default function FloatingWhatsApp() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
+
   const whatsappNumber = "918553643253";
   const message = encodeURIComponent("Hello GRH Fashion, I'm interested in your luxury collection.");
 

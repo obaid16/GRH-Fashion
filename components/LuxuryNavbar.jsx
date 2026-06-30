@@ -21,6 +21,8 @@ export default function LuxuryNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  if (pathname?.startsWith("/admin")) return null;
+
   const isDarkHeader = pathname === "/";
   const forceSolidNav = pathname === "/contact";
   const shouldInvert = !isScrolled && isDarkHeader && !forceSolidNav && !mobileMenuOpen;

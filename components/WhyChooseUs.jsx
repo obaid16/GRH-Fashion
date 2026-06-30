@@ -45,7 +45,29 @@ const itemVariants = {
   }
 };
 
-export default function WhyChooseUs() {
+export default function WhyChooseUs({ content }) {
+  const heading = content?.heading || "The House of GRH";
+  const subheading = content?.subheading || "Our Philosophy";
+
+  const getIcon = (iconName) => {
+    switch (iconName) {
+      case "Scissors": return <Scissors className="w-8 h-8 text-brand-gold" />;
+      case "Sparkles": return <Sparkles className="w-8 h-8 text-brand-gold" />;
+      case "Gem":
+      case "Crown":
+        return <Gem className="w-8 h-8 text-brand-gold" />;
+      default: return <Clock className="w-8 h-8 text-brand-gold" />;
+    }
+  };
+
+  const featureList = content?.items && content.items.length > 0
+    ? content.items.map(item => ({
+        icon: getIcon(item.icon),
+        title: item.title,
+        description: item.description
+      }))
+    : features;
+
   return (
     <section className="py-16 md:py-32 bg-brand-black text-brand-ivory relative overflow-hidden">
       {/* Decorative background element */}
@@ -60,7 +82,7 @@ export default function WhyChooseUs() {
             transition={{ duration: 0.6 }}
             className="text-xs font-poppins text-brand-gold uppercase tracking-[0.3em] mb-4"
           >
-            The GRH Difference
+            {subheading}
           </motion.h3>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -69,7 +91,11 @@ export default function WhyChooseUs() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-4xl md:text-6xl font-playfair uppercase tracking-wider leading-tight"
           >
-            Crafting <span className="text-brand-gold italic lowercase font-cormorant">Perfection</span>
+            {heading.includes("Crafting") ? (
+              <>
+                Crafting <span className="text-brand-gold italic lowercase font-cormorant">Perfection</span>
+              </>
+            ) : heading}
           </motion.h2>
         </div>
 
@@ -80,7 +106,7 @@ export default function WhyChooseUs() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12"
         >
-          {features.map((feature, idx) => (
+          {featureList.map((feature, idx) => (
             <motion.div key={idx} variants={itemVariants} className="group flex flex-col items-center text-center">
               <div className="w-20 h-20 rounded-full border border-brand-gold/30 flex items-center justify-center mb-8 group-hover:bg-brand-gold/10 group-hover:border-brand-gold transition-all duration-500">
                 {feature.icon}

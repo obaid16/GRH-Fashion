@@ -27,39 +27,37 @@ export default function InquiryForm() {
       if (file) {
         const uploadData = new FormData();
         uploadData.append("file", file);
-        // Dynamically import the server action to avoid client-side bundling issues
-        const { uploadFileToCloudinary } = await import("@/app/actions/upload");
+        const { uploadFileToCloudinary } = await import("@/actions/upload");
         const result = await uploadFileToCloudinary(uploadData);
         fileUrl = result.url;
       }
 
-      // Submit to Web3Forms
+      // Import the order creation server action
+      const { createOrder } = await import("@/actions/order");
+
+      // Submit custom inquiry to MongoDB
       const payload = {
-        // NOTE: Replace this with your actual Web3Forms access key
-        access_key: "YOUR_WEB3FORMS_KEY_HERE",
-        subject: "New Custom Design Inquiry",
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        measurements: formData.measurements,
-        designDescription: formData.designDescription,
+        address: "Requested Online Commission",
+        items: [
+          {
+            name: "Bespoke Couture Custom Commission",
+            price: 65000, // Placeholder base price
+            quantity: 1,
+            size: formData.measurements || "Custom Fit",
+            color: "Custom Selected",
+            image: fileUrl || "/images/logo-new.png"
+          }
+        ],
+        discountAmount: 0
       };
 
-      if (fileUrl) {
-        payload.referenceImage = fileUrl;
-      }
+      const result = await createOrder(payload);
 
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (response.ok) {
-        alert("Inquiry submitted successfully. We will contact you soon.");
+      if (result.success) {
+        alert("Inquiry submitted successfully to GRH Atelier. We will contact you soon.");
         setFormData({
           name: "",
           email: "",
@@ -69,7 +67,7 @@ export default function InquiryForm() {
         });
         setFile(null);
       } else {
-        throw new Error("Failed to submit inquiry");
+        throw new Error(result.error || "Failed to submit inquiry");
       }
     } catch (error) {
       console.error(error);

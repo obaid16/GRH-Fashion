@@ -25,17 +25,21 @@ const testimonials = [
   }
 ];
 
-export default function Testimonials() {
+export default function Testimonials({ testimonialsList }) {
+  const resolvedTestimonials = testimonialsList && testimonialsList.length > 0
+    ? testimonialsList
+    : testimonials;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setCurrentIndex((prev) => (prev + 1) % resolvedTestimonials.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [resolvedTestimonials]);
 
   const slideVariants = {
     enter: (direction) => ({
@@ -56,12 +60,12 @@ export default function Testimonials() {
 
   const handleNext = () => {
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    setCurrentIndex((prev) => (prev + 1) % resolvedTestimonials.length);
   };
 
   const handlePrev = () => {
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentIndex((prev) => (prev - 1 + resolvedTestimonials.length) % resolvedTestimonials.length);
   };
 
   return (
@@ -96,31 +100,37 @@ export default function Testimonials() {
 
           <div className="lg:col-span-8 relative h-[300px] md:h-[250px] flex items-center">
             <AnimatePresence initial={false} custom={direction}>
-              <motion.div
-                key={currentIndex}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 200, damping: 30 },
-                  opacity: { duration: 0.8 }
-                }}
-                className="absolute w-full"
-              >
-                <div className="w-12 h-[1px] bg-brand-gold mb-8"></div>
-                <p className="font-cormorant text-3xl md:text-5xl text-brand-ivory leading-[1.3] italic mb-10 max-w-3xl">
-                  "{testimonials[currentIndex].text}"
-                </p>
-                <div className="flex items-center gap-6">
-                  <div className="w-8 h-[1px] bg-brand-ivory/30"></div>
-                  <div>
-                    <h4 className="font-poppins text-xs font-medium uppercase tracking-[0.2em] text-brand-ivory mb-1">{testimonials[currentIndex].name}</h4>
-                    <p className="font-inter text-[10px] uppercase tracking-[0.15em] text-brand-gray">{testimonials[currentIndex].role}</p>
+              {resolvedTestimonials.length > 0 && (
+                <motion.div
+                  key={currentIndex}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 200, damping: 30 },
+                    opacity: { duration: 0.8 }
+                  }}
+                  className="absolute w-full"
+                >
+                  <div className="w-12 h-[1px] bg-brand-gold mb-8"></div>
+                  <p className="font-cormorant text-3xl md:text-5xl text-brand-ivory leading-[1.3] italic mb-10 max-w-3xl">
+                    "{resolvedTestimonials[currentIndex].text || resolvedTestimonials[currentIndex].content}"
+                  </p>
+                  <div className="flex items-center gap-6">
+                    <div className="w-8 h-[1px] bg-brand-ivory/30"></div>
+                    <div>
+                      <h4 className="font-poppins text-xs font-medium uppercase tracking-[0.2em] text-brand-ivory mb-1">
+                        {resolvedTestimonials[currentIndex].name}
+                      </h4>
+                      <p className="font-inter text-[10px] uppercase tracking-[0.15em] text-brand-gray">
+                        {resolvedTestimonials[currentIndex].role}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              )}
             </AnimatePresence>
           </div>
 

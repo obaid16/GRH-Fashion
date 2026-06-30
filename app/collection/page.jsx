@@ -1,12 +1,28 @@
 import CollectionGrid from "@/components/CollectionGrid";
+import connectDB from "@/lib/db";
+import { getProducts } from "@/actions/product";
 import content from "@/data/content.json";
 
 export const metadata = {
   title: "Collection | GRH Fashion",
 };
 
-export default function CollectionPage() {
-  const products = content.products;
+export default async function CollectionPage() {
+  await connectDB();
+  const res = await getProducts({ status: "Published", limit: 100 });
+  
+  let products = [];
+  if (res.success && res.products.length > 0) {
+    products = res.products.map(p => ({
+      id: p.slug,
+      name: p.name,
+      category: p.category,
+      image: p.thumbnail || p.images[0] || "/images/logo-new.png",
+      description: p.shortDescription || p.description,
+    }));
+  } else {
+    products = content.products;
+  }
 
   return (
     <div className="pt-32 pb-24 px-6 lg:px-8 max-w-7xl mx-auto">

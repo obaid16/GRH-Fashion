@@ -1,9 +1,12 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export default function AnimatedFooter() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
   return (
     <footer className="bg-brand-black border-t border-brand-black/90 pt-24 pb-12 overflow-hidden relative">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
